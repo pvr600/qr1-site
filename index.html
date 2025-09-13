@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR1.tech</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <meta name="description" content="Create and Track Beautiful QR Codes. Lifetime membership is ad‑free." />
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a class="logo" href="#/home">QR1.tech</a>
+      <div class="links">
+        <a href="#/home">Home</a>
+        <a href="#/builder">Create QR Code</a>
+        <a href="#/connect">Connect</a>
+        <a href="#/analytics">Track Scans</a>
+        <a href="policies.html">Pricing & Policies</a>
+      </div>
+    </nav>
+
+    <section id="home" class="route active">
+      <div class="hero panel">
+        <span class="badge">Create & Track Beautiful QR Codes</span>
+        <h1>Clean, modern & fast.</h1>
+        <p>Lifetime membership is ad‑free. No popups. No clutter.</p>
+        <div>
+          <a class="btn" href="#/builder">Create QR Code</a>
+          <a class="btn secondary" href="#/examples">See what you can create</a>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:18px">
+        <div class="panel">
+          <h3>Why QR1</h3>
+          <ul class="list">
+            <li>⚡ Minimal, premium UI</li>
+            <li>📊 Scan logs, top cities, geo preview</li>
+            <li>🔒 No ads. Ever.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Preview</h3>
+          <div class="dashed">QR preview appears here</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="builder" class="route">
+      <div class="panel">
+        <h2>Create QR Code</h2>
+        <p class="muted">If not signed in, redirect to sign in/up before generating.</p>
+        <div class="grid" style="margin-top:12px">
+          <label>Content
+            <input id="qr-content" style="width:100%;padding:12px;border:1px solid var(--border);border-radius:10px" placeholder="Paste URL or text" />
+          </label>
+          <div class="grid cols-2">
+            <label>Color <input id="qr-color" type="color" value="#2563EB"/></label>
+            <label>Background <input id="qr-bg" type="color" value="#FFFFFF"/></label>
+          </div>
+          <button class="btn" id="qr-generate">Generate</button>
+          <div id="qr-canvas" class="dashed">Your QR will render here</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="connect" class="route">
+      <div class="panel">
+        <h2>Connect</h2>
+        <div class="grid cols-2">
+          <label>Instagram <input placeholder="@yourhandle" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></label>
+          <label>WhatsApp <input placeholder="+27 ..." style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></label>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="route">
+      <div class="panel">
+        <h2>Scan Analytics</h2>
+        <table class="table">
+          <thead><tr><th>Time</th><th>City</th><th>User Agent</th></tr></thead>
+          <tbody><tr><td>—</td><td>—</td><td>—</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="examples" class="route">
+      <div class="panel">
+        <h2>Examples</h2>
+        <div class="grid cols-2">
+          <div class="card"><img src="images/thumb1.png" alt="" style="width:100%;border-radius:12px"><p class="muted">Business card QR</p></div>
+          <div class="card"><img src="images/thumb2.png" alt="" style="width:100%;border-radius:12px"><p class="muted">Menu QR</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">Lifetime membership is ad‑free.</footer>
+  </div>
+
+  <script>
+    const routes = ["home","builder","connect","analytics","examples"];
+    function showRoute(){const hash=(location.hash||"#/home").replace("#/","");routes.forEach(id=>{const el=document.getElementById(id);if(el) el.classList.toggle("active",id===hash)});}
+    addEventListener("hashchange",showRoute);addEventListener("DOMContentLoaded",showRoute);
+    addEventListener("DOMContentLoaded",()=>{const btn=document.getElementById("qr-generate");if(!btn) return;btn.addEventListener("click",()=>{const content=document.getElementById("qr-content").value.trim();const box=document.getElementById("qr-canvas");box.textContent=content?("QR generated for: "+content):"Enter content first";});});
+  </script>
+</body>
+</html>
