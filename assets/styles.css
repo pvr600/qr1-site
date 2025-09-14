@@ -30,8 +30,9 @@ a{color:var(--accent);text-decoration:none}
 .route{display:none}
 .route.active{display:block}
 kbd.k{font-family:ui-monospace,Menlo,Consolas,monospace;padding:2px 6px;border:1px solid var(--border);border-radius:6px;background:#fff}
-\n\n
-/* App bar (single row) */
+
+
+
 .appbar{position:sticky;top:0;z-index:999;background:#fff;border-bottom:1px solid #E5EAF1}
 .appbar .bar-inner{max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:16px}
 .brandpack{display:flex;align-items:center;gap:10px}
@@ -43,13 +44,9 @@ kbd.k{font-family:ui-monospace,Menlo,Consolas,monospace;padding:2px 6px;border:1
 .pills::-webkit-scrollbar{display:none}
 .pills a{padding:10px 14px;border-radius:999px;border:1px solid #E5EAF1;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04);text-decoration:none;color:#0F172A;font-weight:600}
 .pills a.active{background:#2563EB;color:#fff;border-color:#2563EB}
-
-/* Dots */
 .dots{display:flex;gap:10px;justify-content:center;align-items:center;margin:18px auto}
 .dots .dot{width:10px;height:10px;border-radius:50%;border:2px solid #2563EB;display:inline-block;opacity:.6}
 .dots .dot.active{background:#2563EB;opacity:1}
-
-/* Chips */
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .chip{padding:10px 14px;border:1px solid #E5EAF1;border-radius:999px;background:#fff;cursor:pointer}
 .chip.active{background:#2563EB;color:#fff;border-color:#2563EB}

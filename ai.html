@@ -1,7 +1,6 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Insights — QR1.tech</title><link rel="stylesheet" href="assets/styles.css">
-</head><body>
+<title>AI Insights — QR1.tech</title><link rel="stylesheet" href="assets/styles.css"></head><body>
 
 <header class="appbar">
   <div class="bar-inner">
@@ -13,9 +12,9 @@
       </div>
     </div>
     <nav class="pills">
-      <a data-nav="home" href="#/">Home</a>
+      <a data-nav="home" href="#/home">Home</a>
       <a data-nav="create" href="templates.html">Create QR Code</a>
-      <a data-nav="analytics" href="#/track">Scan Analytics</a>
+      <a data-nav="analytics" href="#/home">Scan Analytics</a>
       <a data-nav="ai" href="#/ai">AI Insights</a>
       <a data-nav="pricing" href="policies.html">Pricing</a>
       <a data-nav="connect" href="connect.html">Connect</a>
@@ -23,16 +22,14 @@
     </nav>
   </div>
 </header>
-
 <div class="container"><main class="panel" style="margin-top:10px">
-  <h1>AI Insights</h1><p class="small">Coming soon — smart tips from scan trends and performance.</p>
+<h1>AI Insights</h1><p class="small">Coming soon — smart tips from scan trends and performance.</p>
 </main></div>
-
 <div class="dots" data-dots>
-  <a class="dot" data-dot="home" href="#/"></a>
+  <a class="dot" data-dot="home" href="#/home"></a>
   <a class="dot" data-dot="create" href="templates.html"></a>
   <a class="dot" data-dot="builder" href="#/builder"></a>
-  <a class="dot" data-dot="analytics" href="#/track"></a>
+  <a class="dot" data-dot="analytics" href="#/home"></a>
   <a class="dot" data-dot="ai" href="#/ai"></a>
   <a class="dot" data-dot="pricing" href="policies.html"></a>
   <a class="dot" data-dot="connect" href="connect.html"></a>
@@ -40,13 +37,12 @@
 
 <script>
 (function(){
-  // Default to Analytics
-  if(!location.hash || location.hash==="#/" || location.hash==="#"){ location.hash = "#/track"; }
+  if(!location.hash || location.hash==="#/"){ location.hash = "#/home"; }
   function key(){
     const h=(location.hash||"").toLowerCase();
     const p=location.pathname.toLowerCase();
     if(p.endsWith("/templates.html")) return "create";
-    if(h.startsWith("#/track")||h.startsWith("#/analytics")) return "analytics";
+    if(h.startsWith("#/home")) return "analytics";
     if(h.startsWith("#/ai")) return "ai";
     if(h.startsWith("#/builder")) return "builder";
     if(p.endsWith("/policies.html")) return "pricing";
@@ -60,22 +56,19 @@
     document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
   }
   function hideInnerBars(){
-    // Hide any inner header/nav rows that aren't our .appbar
-    const candidates = document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
-    candidates.forEach(el=>{
-      if(el.closest('.appbar')) return; // keep ours
-      const txt = (el.textContent||'').replace(/\s+/g,' ').trim();
-      const looksLikeBar = /Home/i.test(txt) && /(Create|Create QR)/i.test(txt) &&
-                           /(Analytics|Track Scans)/i.test(txt);
-      if(looksLikeBar){ el.style.display='none'; }
+    const nodes=document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
+    nodes.forEach(el=>{
+      if(el.closest('.appbar')) return;
+      const txt=(el.textContent||'').replace(/\s+/g,' ').trim();
+      const looksLike = /Home/i.test(txt) && /(Create|Create QR)/i.test(txt) && /(Analytics|Track Scans)/i.test(txt);
+      if(looksLike){ el.style.display='none'; }
     });
   }
   function go(){ hideInnerBars(); paint(); }
   window.addEventListener("hashchange", go);
   window.addEventListener("DOMContentLoaded", go);
-  setTimeout(go, 600);
+  setTimeout(go, 500);
   new MutationObserver(go).observe(document.body, {subtree:true, childList:true});
 })();
 </script>
-
 </body></html>

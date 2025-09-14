@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/.netlify/functions/stats",
+      "destination": "/api/stats"
+    },
+    {
+      "source": "/.netlify/functions/log-scan",
+      "destination": "/api/log-scan"
+    }
+  ]
+}
