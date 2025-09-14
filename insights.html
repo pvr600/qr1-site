@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Insights — QR1.tech</title>
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/app.js" defer></script>
+
+</head>
+<body>
+<div class="container">
+
+<nav class="nav">
+  <a class="logo" href="index.html">QR1.tech</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="builder.html">Create</a>
+    <a href="connect.html">Connect</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="templates.html">Templates</a>
+    <a href="policies.html">Pricing</a>
+  </div>
+</nav>
+
+
+<section class="screen">
+  <main class="panel" style="width:100%">
+    <h2 style="margin:0 0 8px 0">AI Insights</h2>
+    <p class="meta">Lightweight suggestions based on your latest QR. (Hook up to real AI backend later.)</p>
+    <div id="out" class="card"></div>
+  </main>
+</section>
+<div class="footer">Lifetime membership is ad‑free.</div>
+<script>
+function analyse(){
+  const c = lastCode();
+  const out = document.getElementById('out');
+  if(!c){ out.textContent='Create a code first.'; return; }
+  const tips = [];
+  if((c.data||'').length>60) tips.push('Your URL is long — consider a short link for faster scans.');
+  if(!(c.data||'').startsWith('https://')) tips.push('For best results, use an https:// URL.');
+  if((c.name||'').length<4) tips.push('Use a clearer name so you can find it quickly in Analytics.');
+  tips.push('Post the QR near points of decision (checkout, tables, posters).');
+  tips.push('Track performance weekly and archive underperformers.');
+  out.innerHTML = '<strong>'+ (c.name||'Untitled QR') +'</strong><div class="meta" style="margin:6px 0">Preview: '+ (c.data||'') +'</div><ul>' + tips.map(t=>'<li>'+t+'</li>').join('') + '</ul>';
+}
+window.addEventListener('DOMContentLoaded', analyse);
+</script>
+
+</div>
+</body></html>

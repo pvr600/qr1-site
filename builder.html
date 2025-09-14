@@ -3,10 +3,12 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Create — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </head>
 <body>
 <div class="container">
-  
+
 <nav class="nav">
   <a class="logo" href="index.html">QR1.tech</a>
   <div class="links">
@@ -14,54 +16,78 @@
     <a href="builder.html">Create</a>
     <a href="connect.html">Connect</a>
     <a href="analytics.html">Analytics</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="templates.html">Templates</a>
     <a href="policies.html">Pricing</a>
   </div>
 </nav>
 
-  <section class="screen">
-    <form class="panel form" style="width:100%" onsubmit="return false;">
-      <h2 style="margin:0 0 6px 0">Create QR Code</h2>
-      <div class="row">
-        <input id="qrName" placeholder="Name the QR code (e.g., Product A)" maxlength="60">
-        <input id="qrData" placeholder="Content (URL or text)" value="https://qr1.tech/">
-        <div class="flex">
-          <input id="qrColor" type="color" value="#2563EB" style="width:120px">
-          <select id="qrShape">
-            <option value="square" selected>Square</option>
-            <option value="dots">Dots</option>
-          </select>
-        </div>
-      </div>
-      <div class="grid two" style="margin-top:8px">
-        <div class="card center"><img id="qrPreview" src="images/qr-sample.svg" alt="Preview" style="width:100%;max-width:420px"></div>
-        <div class="card">
-          <strong>Export</strong>
-          <p class="meta">Export is for members only. You can still preview and track scans in demo.</p>
-          <div class="kv">
-            <a class="btn" href="#" onclick="saveAndGo()">Save & Track</a>
-            <a class="btn ghost" href="#" onclick="alert('Export is a member feature. Join to download high‑res SVG/PNG.');">Export</a>
+
+<section class="screen">
+  <form class="panel form" style="width:100%" onsubmit="return false;">
+    <div class="grid two">
+      <div class="scroll">
+        <h2 style="margin:0 0 6px 0">Create QR Code</h2>
+        <label class="small">Name the QR code</label>
+        <input id="qrName" placeholder="e.g., Product A" maxlength="60">
+        <label class="small">Content (URL or text)</label>
+        <input id="qrData" placeholder="https://example.com" value="https://qr1.tech/">
+        <div class="row">
+          <div>
+            <label class="small">QR Color</label>
+            <input id="qrColor" type="color" value="#2563EB" style="width:120px">
+          </div>
+          <div>
+            <label class="small">Background</label>
+            <input id="bgColor" type="color" value="#FFFFFF" style="width:120px">
           </div>
         </div>
+        <div class="row">
+          <label class="small">Notes (optional)</label>
+          <textarea id="qrNotes" rows="3" placeholder="Internal note"></textarea>
+        </div>
+        <div class="sticky-actions kv">
+          <a class="btn" href="#" onclick="saveAndGo()">Publish & Track</a>
+          <a class="btn ghost" href="#" onclick="exportBlocked()">Download PNG</a>
+          <a class="btn ghost" href="#" onclick="exportBlocked()">Download SVG</a>
+          <a class="btn ghost" href="#" onclick="copy(document.getElementById('qrData').value)">Copy URL</a>
+        </div>
       </div>
-    </form>
-  </section>
-  <div class="footer">Lifetime membership is ad‑free.</div>
-</div>
+      <div class="card center">
+        <div id="qrCanvasWrap" style="width:100%;max-width:480px"></div>
+      </div>
+    </div>
+  </form>
+</section>
+<div class="footer">Export is for members only.</div>
 <script>
+function renderQR(){
+  const el = document.getElementById('qrCanvasWrap');
+  el.innerHTML='';
+  const text = document.getElementById('qrData').value || ' ';
+  const colorDark = document.getElementById('qrColor').value || '#2563EB';
+  const colorLight = document.getElementById('bgColor').value || '#FFFFFF';
+  QRCode.toCanvas(text, {width:480, margin:2, color: {dark: colorDark, light: colorLight}}, function (err, canvas) {
+    if(err) return;
+    canvas.style.borderRadius='14px'; canvas.style.maxWidth='100%';
+    el.appendChild(canvas);
+  });
+}
+function exportBlocked(){ alert('Export (PNG/SVG) is a member feature. Join to download high‑res files.'); }
 function saveAndGo(){
   const name = document.getElementById('qrName').value.trim() || 'Untitled QR';
-  const data = document.getElementById('qrData').value.trim();
+  const data = document.getElementById('qrData').value.trim() || '';
   const color = document.getElementById('qrColor').value;
-  const shape = document.getElementById('qrShape').value;
-  const id = 'qr_'+Date.now();
-  const scans = Array.from({length:7}, (_,i)=>Math.floor(5+Math.random()*10));
-  const rec = {id, name, data, color, shape, createdAt: Date.now(), scans};
-  const key='qr1_codes';
-  const items = JSON.parse(localStorage.getItem(key)||'[]');
-  items.unshift(rec);
-  localStorage.setItem(key, JSON.stringify(items));
-  localStorage.setItem('qr1_last_code_id', id);
+  const bg = document.getElementById('bgColor').value;
+  const notes = document.getElementById('qrNotes').value.trim();
+  const id = uid();
+  const rec = {id, name, data, color, bg, notes, createdAt: Date.now(), scans: demoScans()};
+  addCode(rec);
   window.location.href = 'analytics.html';
 }
+['qrData','qrColor','bgColor'].forEach(id=>{document.getElementById(id).addEventListener('input', renderQR);});
+window.addEventListener('DOMContentLoaded', renderQR);
 </script>
+
+</div>
 </body></html>

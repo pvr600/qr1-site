@@ -3,10 +3,12 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Analytics — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/app.js" defer></script>
+
 </head>
 <body>
 <div class="container">
-  
+
 <nav class="nav">
   <a class="logo" href="index.html">QR1.tech</a>
   <div class="links">
@@ -14,13 +16,17 @@
     <a href="builder.html">Create</a>
     <a href="connect.html">Connect</a>
     <a href="analytics.html">Analytics</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="templates.html">Templates</a>
     <a href="policies.html">Pricing</a>
   </div>
 </nav>
 
-  <section class="screen">
-    <div class="layout panel" style="width:100%;display:flex;gap:16px">
-      <div class="main" style="flex:1">
+
+<section class="screen">
+  <div class="panel" style="width:100%">
+    <div class="grid two" style="grid-template-columns: 1fr 260px">
+      <div class="main">
         <span class="badge ai">Powerful AI insights</span>
         <h2 id="codeTitle" style="margin:8px 0">Analytics</h2>
         <div class="grid two">
@@ -34,24 +40,18 @@
       <aside class="sidebar">
         <div class="card">
           <strong>Your QR codes</strong>
-          <div id="codeList" class="list" style="margin-top:8px"></div>
+          <div id="codeList" class="list scroll" style="margin-top:8px"></div>
         </div>
       </aside>
     </div>
-  </section>
-  <div class="footer">Lifetime membership is ad‑free.</div>
-</div>
+  </div>
+</section>
+<div class="footer">Lifetime membership is ad‑free.</div>
 <script>
-function loadCodes(){
-  return JSON.parse(localStorage.getItem('qr1_codes')||'[]');
-}
-function setActive(id){
-  localStorage.setItem('qr1_last_code_id', id);
-  render();
-}
 function render(){
-  const codes = loadCodes();
-  const last = localStorage.getItem('qr1_last_code_id') || (codes[0] && codes[0].id);
+  const codes = getCodes();
+  const last = (localStorage.getItem('qr1_last_code_id')) || (codes[0] && codes[0].id);
+  if(last) setLast(last);
   const current = codes.find(c=>c.id===last);
   const title = document.getElementById('codeTitle');
   const list = document.getElementById('codeList');
@@ -62,23 +62,20 @@ function render(){
     log.textContent='Create a code first.';
     return;
   }
-  const name = (current && current.name) || 'Untitled QR';
-  title.textContent = name;
+  title.textContent = (current && current.name) || 'Untitled QR';
   codes.forEach(c=>{
     const a=document.createElement('a');
     a.href='#';
     a.textContent=c.name||'Untitled QR';
-    a.className=''+(c.id===last?'active':'');
-    a.onclick=(e)=>{e.preventDefault(); setActive(c.id);};
+    if(c.id===last) a.classList.add('active');
+    a.onclick=(e)=>{e.preventDefault(); setLast(c.id); render();};
     list.appendChild(a);
   });
-  // demo scan log
   const recent = [
     ['10:41','Pretoria','iPhone Safari'],
     ['09:15','Johannesburg','Chrome']
   ];
   log.innerHTML = recent.map(r=>`${r[0]} — ${r[1]} — ${r[2]}`).join('<br>');
-  // draw simple line chart
   const ctx = document.getElementById('line').getContext('2d');
   const d = (current && current.scans) || [3,4,6,5,7,8,9];
   const w=ctx.canvas.width, h=ctx.canvas.height, pad=20;
@@ -94,4 +91,6 @@ function render(){
 }
 window.addEventListener('DOMContentLoaded', render);
 </script>
+
+</div>
 </body></html>

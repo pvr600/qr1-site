@@ -3,10 +3,12 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Connect — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/app.js" defer></script>
+
 </head>
 <body>
 <div class="container">
-  
+
 <nav class="nav">
   <a class="logo" href="index.html">QR1.tech</a>
   <div class="links">
@@ -14,24 +16,28 @@
     <a href="builder.html">Create</a>
     <a href="connect.html">Connect</a>
     <a href="analytics.html">Analytics</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="templates.html">Templates</a>
     <a href="policies.html">Pricing</a>
   </div>
 </nav>
 
-  <section class="screen">
-    <form class="panel form" style="width:100%">
-      <h2 style="margin:0 0 6px 0">Connect</h2>
-      <div class="row">
-        <input placeholder="Instagram URL">
-        <input placeholder="WhatsApp number">
-        <input placeholder="Website URL">
-      </div>
-      <div class="kv">
-        <a class="btn" href="builder.html">Save</a>
-      </div>
-      <p class="meta">Tip: keep links short and human‑friendly.</p>
-    </form>
-  </section>
-  <div class="footer">Lifetime membership is ad‑free.</div>
+
+<section class="screen">
+  <form class="panel form" style="width:100%">
+    <h2 style="margin:0 0 6px 0">Connect</h2>
+    <div class="row">
+      <input id="ig" placeholder="Instagram URL">
+      <input id="wa" placeholder="WhatsApp number">
+      <input id="web" placeholder="Website URL">
+    </div>
+    <div class="kv">
+      <a class="btn" href="builder.html">Save</a>
+    </div>
+    <p class="meta">Tip: keep links short and human‑friendly.</p>
+  </form>
+</section>
+<div class="footer">Lifetime membership is ad‑free.</div>
+
 </div>
 </body></html>
