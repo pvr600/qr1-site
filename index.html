@@ -71,7 +71,7 @@
   <nav class="links">
     <a href="index.html#/" data-nav="home">Home</a>
     <a href="templates.html" data-nav="create">Create</a>
-    <a href="index.html#/builder" data-nav="builder">Builder</a>
+    <a href="index.html#/track" data-nav="analytics">Analytics</a>
     <a href="index.html#/examples" data-nav="examples">Examples</a>
     <a href="policies.html" data-nav="pricing">Pricing</a>
     <a href="signin.html" data-nav="signin">Sign in</a>
@@ -656,6 +656,7 @@
   <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
   <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
   <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
+  <a class="dot" href="index.html#/track" data-dot="analytics" title="Analytics"></a>
   <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
   <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
 </div>
@@ -667,6 +668,7 @@
     const p = location.pathname.toLowerCase();
     if (p.endsWith('/templates.html')) return 'create';
     if (h.startsWith('#/builder')) return 'builder';
+    if (h.startsWith('#/track') || h.startsWith('#/analytics')) return 'analytics';
     if (h.startsWith('#/examples')) return 'examples';
     if (p.endsWith('/policies.html')) return 'pricing';
     if (p.endsWith('/signin.html')) return 'signin';
@@ -680,7 +682,7 @@
     document.querySelectorAll('.dots .dot').forEach(a=>{
       if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
     });
-    // Try to prefill builder name from localStorage (best effort)
+    // Prefill builder name from localStorage (best effort)
     if(k==='builder'){
       try{
         const n = localStorage.getItem('qr1_new_name')||'';

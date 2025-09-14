@@ -1,9 +1,8 @@
-# QR1.tech — Templates‑First Flow Build
+# QR1.tech — Clean Top Nav (no second row)
 
-Changes:
-- Top nav unified across pages; active link shows as a blue pill.
-- New **Templates** page (`templates.html`) opens first for “Create QR Code” flow.
-- Flow: Templates → “Name your QR code” → jump to **Builder** (`index.html#/builder`).
-- Bottom **selector dots** added on all pages (Home • Templates • Builder • Examples • Pricing).
+- Removed **Builder** from top menu to stop wrap and confusion.
+- Forced a **single-row** nav; it scrolls horizontally on small screens.
+- Selector dots unchanged (still include Builder step).
+- Flow: Home → Create (Templates) → Name → Builder; Analytics & Pricing also in nav.
 
-Deploy: upload folder contents to GitHub repo root. Vercel auto‑redeploys. Use hard refresh after.
+Deploy: upload folder contents to your GitHub repo root; Vercel auto-redeploys.
