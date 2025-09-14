@@ -3,36 +3,106 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Templates — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
-<script src="assets/app.js" defer></script>
-
 </head>
 <body>
+
+<div class="topnav container">
+  <div class="brand"><a href="index.html#/">QR1.tech</a></div>
+  <nav class="links">
+    <a href="index.html#/" data-nav="home">Home</a>
+    <a href="templates.html" data-nav="create">Create</a>
+    <a href="index.html#/builder" data-nav="builder">Builder</a>
+    <a href="index.html#/examples" data-nav="examples">Examples</a>
+    <a href="policies.html" data-nav="pricing">Pricing</a>
+    <a href="signin.html" data-nav="signin">Sign in</a>
+  </nav>
+</div>
+
 <div class="container">
-
-<nav class="nav">
-  <a class="logo" href="index.html">QR1.tech</a>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="builder.html">Create</a>
-    <a href="connect.html">Connect</a>
-    <a href="analytics.html">Analytics</a>
-    <a href="insights.html">AI Insights</a>
-    <a href="templates.html">Templates</a>
-    <a href="policies.html">Pricing</a>
-  </div>
-</nav>
-
-
-<section class="screen">
-  <main class="panel" style="width:100%">
-    <h2 style="margin:0 0 8px 0">Templates</h2>
-    <div class="grid two">
-      <div class="card"><strong>Business Card</strong><div class="meta">Phone • Email • Web</div><div class="kv"><a class="btn" href="builder.html?tpl=card">Use</a></div></div>
-      <div class="card"><strong>Menu / Price List</strong><div class="meta">PDF or page link</div><div class="kv"><a class="btn" href="builder.html?tpl=menu">Use</a></div></div>
+  <main class="panel" style="margin-top:10px">
+    <h1 style="margin:.3rem 0">What do you want to create your QR code for?</h1>
+    <div class="chips">
+      <button class="chip" data-tpl="url">Website / Link</button>
+      <button class="chip" data-tpl="whatsapp">WhatsApp</button>
+      <button class="chip" data-tpl="instagram">Instagram</button>
+      <button class="chip" data-tpl="text">Plain Text</button>
+      <button class="chip" data-tpl="pdf">Menu / PDF</button>
+      <button class="chip" data-tpl="contact">Contact Card</button>
+    </div>
+    <div id="namer" class="namer" style="display:none;margin-top:12px">
+      <label class="small">Name your QR code</label>
+      <input id="qrName" placeholder="e.g., Product A" maxlength="60">
+      <div class="kv" style="margin-top:10px">
+        <a class="btn" href="#" id="go">Continue to Builder</a>
+      </div>
+      <p class="small" style="margin-top:6px">We’ll carry the name into the builder.</p>
     </div>
   </main>
-</section>
-<div class="footer">Lifetime membership is ad‑free.</div>
-
 </div>
+
+<div class="dots container" data-dots>
+  <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
+  <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
+  <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
+  <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
+  <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
+</div>
+
+<script>
+(function(){
+  let chosen = null;
+  const chips = document.querySelectorAll('.chip');
+  const namer = document.getElementById('namer');
+  const go = document.getElementById('go');
+  chips.forEach(b=>b.addEventListener('click',()=>{
+    chosen = b.dataset.tpl;
+    chips.forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    namer.style.display='block';
+  }));
+  go.addEventListener('click', function(e){
+    e.preventDefault();
+    const name = document.getElementById('qrName').value.trim()||'Untitled QR';
+    try{ localStorage.setItem('qr1_new_template', chosen||'url'); localStorage.setItem('qr1_new_name', name); }catch(e){}
+    window.location.href = 'index.html#/builder';
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function currentKey(){
+    const h = (location.hash||'').toLowerCase();
+    const p = location.pathname.toLowerCase();
+    if (p.endsWith('/templates.html')) return 'create';
+    if (h.startsWith('#/builder')) return 'builder';
+    if (h.startsWith('#/examples')) return 'examples';
+    if (p.endsWith('/policies.html')) return 'pricing';
+    if (p.endsWith('/signin.html')) return 'signin';
+    return 'home';
+  }
+  function paint(){
+    var k = currentKey();
+    document.querySelectorAll('.topnav .links a').forEach(a=>{
+      if(a.dataset.nav===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
+    });
+    document.querySelectorAll('.dots .dot').forEach(a=>{
+      if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
+    });
+    // Try to prefill builder name from localStorage (best effort)
+    if(k==='builder'){
+      try{
+        const n = localStorage.getItem('qr1_new_name')||'';
+        if(n){
+          const inputs = Array.from(document.querySelectorAll('input,textarea')).filter(el=>/name/i.test(el.placeholder||'') || /name/i.test(el.id||''));
+          if(inputs[0] && !inputs[0].value){ inputs[0].value = n; }
+        }
+      }catch(e){}
+    }
+  }
+  window.addEventListener('hashchange', paint);
+  window.addEventListener('DOMContentLoaded', paint);
+  paint();
+})();
+</script>
+
 </body></html>

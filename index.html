@@ -65,6 +65,19 @@
   <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
 </head>
 <body class="bg-[var(--bg)]">
+
+<div class="topnav container">
+  <div class="brand"><a href="index.html#/">QR1.tech</a></div>
+  <nav class="links">
+    <a href="index.html#/" data-nav="home">Home</a>
+    <a href="templates.html" data-nav="create">Create</a>
+    <a href="index.html#/builder" data-nav="builder">Builder</a>
+    <a href="index.html#/examples" data-nav="examples">Examples</a>
+    <a href="policies.html" data-nav="pricing">Pricing</a>
+    <a href="signin.html" data-nav="signin">Sign in</a>
+  </nav>
+</div>
+
   <header class="border-b border-brand-border/80 bg-white sticky top-0 z-40">
     <div class="container-lg flex items-center justify-between py-3">
       <a href="#/home" class="flex items-center gap-3">
@@ -638,5 +651,51 @@
   }
   init();
 </script>
+
+<div class="dots container" data-dots>
+  <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
+  <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
+  <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
+  <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
+  <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
+</div>
+
+<script>
+(function(){
+  function currentKey(){
+    const h = (location.hash||'').toLowerCase();
+    const p = location.pathname.toLowerCase();
+    if (p.endsWith('/templates.html')) return 'create';
+    if (h.startsWith('#/builder')) return 'builder';
+    if (h.startsWith('#/examples')) return 'examples';
+    if (p.endsWith('/policies.html')) return 'pricing';
+    if (p.endsWith('/signin.html')) return 'signin';
+    return 'home';
+  }
+  function paint(){
+    var k = currentKey();
+    document.querySelectorAll('.topnav .links a').forEach(a=>{
+      if(a.dataset.nav===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
+    });
+    document.querySelectorAll('.dots .dot').forEach(a=>{
+      if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
+    });
+    // Try to prefill builder name from localStorage (best effort)
+    if(k==='builder'){
+      try{
+        const n = localStorage.getItem('qr1_new_name')||'';
+        if(n){
+          const inputs = Array.from(document.querySelectorAll('input,textarea')).filter(el=>/name/i.test(el.placeholder||'') || /name/i.test(el.id||''));
+          if(inputs[0] && !inputs[0].value){ inputs[0].value = n; }
+        }
+      }catch(e){}
+    }
+  }
+  window.addEventListener('hashchange', paint);
+  window.addEventListener('DOMContentLoaded', paint);
+  paint();
+})();
+</script>
+
 </body>
 </html>

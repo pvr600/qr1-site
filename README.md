@@ -1,12 +1,9 @@
-# QR1.tech — Package with Custom Styles
+# QR1.tech — Templates‑First Flow Build
 
-- `index.html` — main SPA (hash routes).
-- `assets/styles.css` — your uploaded brand stylesheet (linked in <head>).
-- `assets/STYLES_README.md` — usage note you provided.
-- `policies.html`, `signin.html` — included as uploaded.
-- `netlify/functions/*` — optional functions if present.
-- `404.html`, `netlify.toml` — SPA fallback + functions config.
+Changes:
+- Top nav unified across pages; active link shows as a blue pill.
+- New **Templates** page (`templates.html`) opens first for “Create QR Code” flow.
+- Flow: Templates → “Name your QR code” → jump to **Builder** (`index.html#/builder`).
+- Bottom **selector dots** added on all pages (Home • Templates • Builder • Examples • Pricing).
 
-## Deploy
-1) Upload all files to your GitHub repo root.
-2) Vercel or Netlify deploy -> hard refresh.
+Deploy: upload folder contents to GitHub repo root. Vercel auto‑redeploys. Use hard refresh after.
