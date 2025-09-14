@@ -1,0 +1,1 @@
+Drop assets/styles.css into any project. Link it in <head>: <link rel='stylesheet' href='assets/styles.css'>

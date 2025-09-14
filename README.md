@@ -1,16 +1,12 @@
-# QR1.tech — Locked Demo Package (analytics restored; builder gated)
-Matches pinned QR1 Master Rules.
+# QR1.tech — Package with Custom Styles
 
-Pages:
-- `index.html` — Home (no builder panel, CTA → `signin.html`)
-- `examples.html` — Static thumbnails (two per row)
-- `analytics.html` — Demo charts + scan log + geo preview placeholder
-- `policies.html` — Pricing & Policies (R199, ad-free)
-- `signin.html` — Builder gate (sign in/up placeholder)
-- `assets/styles.css` — Tokens & components
-- `404.html` — Redirect to Home
+- `index.html` — main SPA (hash routes).
+- `assets/styles.css` — your uploaded brand stylesheet (linked in <head>).
+- `assets/STYLES_README.md` — usage note you provided.
+- `policies.html`, `signin.html` — included as uploaded.
+- `netlify/functions/*` — optional functions if present.
+- `404.html`, `netlify.toml` — SPA fallback + functions config.
 
-Tokens: #F8FAFC, #FFFFFF, #0F172A, #64748B, #E2E8F0, #2563EB, #3B82F6  
-CTA rule: If signed in → builder; else → sign in/up.
-
-Generated 2025-09-13T12:30:04
+## Deploy
+1) Upload all files to your GitHub repo root.
+2) Vercel or Netlify deploy -> hard refresh.
