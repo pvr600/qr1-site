@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create — QR1.tech</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="container">
+  
+<nav class="nav">
+  <a class="logo" href="index.html">QR1.tech</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="builder.html">Create</a>
+    <a href="connect.html">Connect</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="policies.html">Pricing</a>
+  </div>
+</nav>
+
+  <section class="screen">
+    <form class="panel form" style="width:100%" onsubmit="return false;">
+      <h2 style="margin:0 0 6px 0">Create QR Code</h2>
+      <div class="row">
+        <input id="qrName" placeholder="Name the QR code (e.g., Product A)" maxlength="60">
+        <input id="qrData" placeholder="Content (URL or text)" value="https://qr1.tech/">
+        <div class="flex">
+          <input id="qrColor" type="color" value="#2563EB" style="width:120px">
+          <select id="qrShape">
+            <option value="square" selected>Square</option>
+            <option value="dots">Dots</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid two" style="margin-top:8px">
+        <div class="card center"><img id="qrPreview" src="images/qr-sample.svg" alt="Preview" style="width:100%;max-width:420px"></div>
+        <div class="card">
+          <strong>Export</strong>
+          <p class="meta">Export is for members only. You can still preview and track scans in demo.</p>
+          <div class="kv">
+            <a class="btn" href="#" onclick="saveAndGo()">Save & Track</a>
+            <a class="btn ghost" href="#" onclick="alert('Export is a member feature. Join to download high‑res SVG/PNG.');">Export</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div class="footer">Lifetime membership is ad‑free.</div>
+</div>
+<script>
+function saveAndGo(){
+  const name = document.getElementById('qrName').value.trim() || 'Untitled QR';
+  const data = document.getElementById('qrData').value.trim();
+  const color = document.getElementById('qrColor').value;
+  const shape = document.getElementById('qrShape').value;
+  const id = 'qr_'+Date.now();
+  const scans = Array.from({length:7}, (_,i)=>Math.floor(5+Math.random()*10));
+  const rec = {id, name, data, color, shape, createdAt: Date.now(), scans};
+  const key='qr1_codes';
+  const items = JSON.parse(localStorage.getItem(key)||'[]');
+  items.unshift(rec);
+  localStorage.setItem(key, JSON.stringify(items));
+  localStorage.setItem('qr1_last_code_id', id);
+  window.location.href = 'analytics.html';
+}
+</script>
+</body></html>

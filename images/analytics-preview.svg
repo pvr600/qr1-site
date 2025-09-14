@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520">
+  <rect x="0" y="0" width="520" height="520" rx="18" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <polyline fill="none" stroke="#2563EB" stroke-width="6" points="40,360 120,320 200,340 280,260 360,280 440,220"/>
+  <rect x="60" y="420" width="60" height="60" fill="#EEF5FF" stroke="#E2E8F0" rx="8"/>
+  <rect x="160" y="400" width="60" height="80" fill="#2563EB" rx="8"/>
+  <rect x="260" y="420" width="60" height="60" fill="#3B82F6" rx="8"/>
+  <rect x="360" y="440" width="60" height="40" fill="#93C5FD" rx="8"/>
+  <text x="40" y="60" font-family="Inter, Arial" font-size="20" fill="#0F172A">Analytics Preview</text>
+</svg>
