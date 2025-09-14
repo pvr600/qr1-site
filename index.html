@@ -653,12 +653,12 @@
 </script>
 
 <div class="dots container" data-dots>
-  <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
-  <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
-  <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
-  <a class="dot" href="index.html#/track" data-dot="analytics" title="Analytics"></a>
-  <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
-  <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
+  <a class="dot" href="index.html#/" data-dot="home"></a>
+  <a class="dot" href="templates.html" data-dot="create"></a>
+  <a class="dot" href="index.html#/builder" data-dot="builder"></a>
+  <a class="dot" href="index.html#/track" data-dot="analytics"></a>
+  <a class="dot" href="index.html#/examples" data-dot="examples"></a>
+  <a class="dot" href="policies.html" data-dot="pricing"></a>
 </div>
 
 <script>
@@ -688,17 +688,17 @@
       document.querySelectorAll('a,button,span').forEach(n=>{
         if(/track\s*scans/i.test(n.textContent||'')){ n.textContent = n.textContent.replace(/track\s*scans/ig,'Analytics'); }
       });
-      document.querySelectorAll('a').forEach(a=>{
-        if(/templates/i.test(a.textContent||'') && (a.getAttribute('href')||'').includes('#/')){ a.style.display='none'; }
+      const candidates = document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
+      candidates.forEach(el=>{
+        if(el.closest('.topnav')) return;
+        const t = (el.textContent||'').replace(/\s+/g,' ').trim();
+        const looksLikeInnerBar = /Home/i.test(t) && /(Create\s*QR|Create)/i.test(t) &&
+                                  /(Analytics|Track Scans)/i.test(t) && /Examples/i.test(t);
+        if(looksLikeInnerBar){ el.style.display='none'; }
       });
       document.querySelectorAll('a,button').forEach(b=>{
         if(/create\s*qr\s*code/i.test(b.textContent||'')){ b.style.display='none'; }
       });
-      const blocks = Array.from(document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container')).filter(el=>{
-        const t = (el.textContent||'').replace(/\s+/g,' ').trim();
-        return /Home/i.test(t) && /(Create\s*QR|Create)/i.test(t) && /(Analytics|Track Scans)/i.test(t) && /Examples/i.test(t);
-      });
-      blocks.forEach(el=>{ el.style.display='none'; });
     }catch(e){}
   }
   function go(){ paint(); hideInnerHeader(); }

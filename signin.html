@@ -44,12 +44,12 @@
   </div>
 
 <div class="dots container" data-dots>
-  <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
-  <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
-  <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
-  <a class="dot" href="index.html#/track" data-dot="analytics" title="Analytics"></a>
-  <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
-  <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
+  <a class="dot" href="index.html#/" data-dot="home"></a>
+  <a class="dot" href="templates.html" data-dot="create"></a>
+  <a class="dot" href="index.html#/builder" data-dot="builder"></a>
+  <a class="dot" href="index.html#/track" data-dot="analytics"></a>
+  <a class="dot" href="index.html#/examples" data-dot="examples"></a>
+  <a class="dot" href="policies.html" data-dot="pricing"></a>
 </div>
 
 <script>
@@ -73,20 +73,30 @@
     document.querySelectorAll('.dots .dot').forEach(a=>{
       if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
     });
-    // Prefill builder name from localStorage (best effort)
-    if(k==='builder'){
-      try{
-        const n = localStorage.getItem('qr1_new_name')||'';
-        if(n){
-          const inputs = Array.from(document.querySelectorAll('input,textarea')).filter(el=>/name/i.test(el.placeholder||'') || /name/i.test(el.id||''));
-          if(inputs[0] && !inputs[0].value){ inputs[0].value = n; }
-        }
-      }catch(e){}
-    }
   }
-  window.addEventListener('hashchange', paint);
-  window.addEventListener('DOMContentLoaded', paint);
-  paint();
+  function hideInnerHeader(){
+    try{
+      document.querySelectorAll('a,button,span').forEach(n=>{
+        if(/track\s*scans/i.test(n.textContent||'')){ n.textContent = n.textContent.replace(/track\s*scans/ig,'Analytics'); }
+      });
+      const candidates = document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
+      candidates.forEach(el=>{
+        if(el.closest('.topnav')) return;
+        const t = (el.textContent||'').replace(/\s+/g,' ').trim();
+        const looksLikeInnerBar = /Home/i.test(t) && /(Create\s*QR|Create)/i.test(t) &&
+                                  /(Analytics|Track Scans)/i.test(t) && /Examples/i.test(t);
+        if(looksLikeInnerBar){ el.style.display='none'; }
+      });
+      document.querySelectorAll('a,button').forEach(b=>{
+        if(/create\s*qr\s*code/i.test(b.textContent||'')){ b.style.display='none'; }
+      });
+    }catch(e){}
+  }
+  function go(){ paint(); hideInnerHeader(); }
+  window.addEventListener('hashchange', go);
+  window.addEventListener('DOMContentLoaded', go);
+  setTimeout(go, 600);
+  new MutationObserver(go).observe(document.body, {subtree:true, childList:true});
 })();
 </script>
 
