@@ -1,43 +1,102 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pricing — QR1.tech</title>
-<link rel="stylesheet" href="assets/styles.css">
-<script src="assets/app.js" defer></script>
-
-</head>
-<body>
-<div class="container">
-
-<nav class="nav">
-  <a class="logo" href="index.html">QR1.tech</a>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="builder.html">Create</a>
-    <a href="connect.html">Connect</a>
-    <a href="analytics.html">Analytics</a>
-    <a href="insights.html">AI Insights</a>
-    <a href="templates.html">Templates</a>
-    <a href="policies.html">Pricing</a>
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Pricing & Policies — QR1.tech</title>
+<style>
+  :root{
+    --bg:#F8FAFC; --panel:#FFFFFF; --text:#0F172A; --muted:#64748B; --border:#E2E8F0;
+    --accent:#2563EB; --accent-2:#3B82F6; --shadow:0 10px 20px rgba(2,6,23,0.06);
+    --radius:16px; --radius-lg:20px; --pad:20px; --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--text);
+    font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  a{color:inherit; text-decoration:none}
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+  header{position:sticky; top:0; z-index:50; background:rgba(248,250,252,0.8);
+    backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid var(--border)}
+  .bar{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+  .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:0.2px}
+  .logo{width:36px; height:36px; border-radius:12px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:grid; place-items:center; color:#fff; font-weight:800}
+  nav{display:flex; align-items:center; gap:10px}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+    border:1px solid var(--border); background:#fff; border-radius:14px;
+    box-shadow:var(--shadow); font-weight:600}
+  .btn.primary{background:var(--accent); color:#fff; border-color:transparent}
+  .btn.primary:hover{filter:saturate(1.05) brightness(1.02)}
+  .btn:active{transform:translateY(1px)}
+  .hero{padding:56px 0 28px}
+  .hero .wrap{display:grid; grid-template-columns:1.25fr 1fr; gap:24px}
+  .title{font-size:clamp(28px, 4.4vw, 44px); line-height:1.1; letter-spacing:-0.2px; margin:0 0 12px}
+  .sub{color:var(--muted); margin:0 0 18px}
+  .cta-row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .note{font-size:14px; color:var(--muted)}
+  .panel{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow)}
+  .qrbox{padding:20px; background:#fff; border:1px solid var(--border); border-radius:14px; display:grid; place-items:center; height:auto}
+  .qrbox img{width:200px; height:200px; border-radius:12px}
+  section{padding:28px 0}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px}
+  .card h3{margin:0 0 6px; font-size:18px}
+  .muted{color:var(--muted)}
+  .icon-pill{display:inline-grid; place-items:center; width:32px; height:32px; border-radius:10px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; margin-bottom:8px}
+  .analytics{display:grid; grid-template-columns:1.3fr 1fr; gap:18px}
+  .chart{height:220px;}
+  canvas{width:100%; height:100%}
+  table{width:100%; border-collapse:separate; border-spacing:0}
+  th,td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--border)}
+  th{font-size:13px; color:var(--muted); font-weight:600}
+  .pill{display:inline-flex; align-items:center; padding:4px 8px; font-size:12px; border-radius:999px; background:#EEF2FF; color:#3730A3}
+  footer{margin-top:24px; border-top:1px solid var(--border); padding:22px 0; color:#71717a; font-size:14px}
+  .page-container{max-width:900px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05)}
+  @media (max-width: 920px){.hero .wrap{grid-template-columns:1fr}}
+  @media (max-width: 760px){.grid-3{grid-template-columns:1fr}; .analytics{grid-template-columns:1fr}}
+</style>
+</head><body>
+<header>
+  <div class="container bar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">QR</div>
+      <div>
+        <div>QR1.tech</div>
+        <div style="font-size:12px; color:#64748B; line-height:1">Create & Track Beautiful QR Codes</div>
+      </div>
+    </div>
+    <nav>
+      <a class="btn" href="examples.html">Examples</a>
+      <a class="btn" href="policies.html">Pricing & Policies</a>
+      <a class="btn primary" href="signin.html">Create QR Code</a>
+    </nav>
   </div>
-</nav>
+</header>
 
+<main class="page-container">
+  <h1>Pricing & Policies</h1>
+  <h2>Pricing</h2>
+  <p><strong>Lifetime Membership</strong>: R199 (one-time payment)</p>
+  <ul>
+    <li>Includes unlimited QR code creation, full customization options, and scan analytics.</li>
+    <li>No hidden fees.</li>
+  </ul>
+  <h2>Terms of Service</h2>
+  <ul>
+    <li>Membership is personal and non-transferable.</li>
+    <li>QR codes generated through QR1.tech may not be resold or redistributed.</li>
+    <li>We reserve the right to update features, provided lifetime access remains active.</li>
+  </ul>
+  <h2>Refund Policy</h2>
+  <ul>
+    <li>As this is a digital product, refunds are not offered once a QR code has been created and delivered.</li>
+    <li>If the service fails to provide you with a working QR code after purchase, you are entitled to a full refund within 7 days.</li>
+  </ul>
+  <h2>Contact Information</h2>
+  <p><strong>Business name</strong>: Eaglestar Truck and Tractor CC<br>
+  <strong>Email</strong>: info@qr1.tech<br>
+  <strong>Phone</strong>: 067 0000 777<br>
+  <strong>Address</strong>: Menlyn, Pretoria, South Africa</p>
+</main>
 
-<section class="screen">
-  <main class="panel" style="width:100%">
-    <h2 style="margin:0 0 10px 0">Pricing</h2>
-    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:18px">
-      <div><strong>Lifetime Membership</strong><div class="meta">All current features + future improvements</div></div>
-      <div style="font-weight:800;font-size:26px">R199 once‑off</div>
-    </div>
-    <div class="grid two" style="margin-top:12px">
-      <div class="card"><strong>Includes</strong><div class="meta">Unlimited static QR • Clean exports • Scan analytics • Email support</div></div>
-      <div class="card"><strong>Policies</strong><div class="meta">7‑day refund • No ads/data selling • Small biz & personal use • You own your content</div></div>
-    </div>
-    <div class="card" style="margin-top:12px"><strong>Contact</strong><div class="meta">support@qr1.tech</div></div>
-  </main>
-</section>
-<div class="footer">Lifetime membership is ad‑free.</div>
-
-</div>
-</body></html>
+<footer>
+  <div class="container">© <span id="yr"></span> QR1.tech — Lifetime membership is ad‑free. · <a href="policies.html">Pricing & Policies</a></div>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
