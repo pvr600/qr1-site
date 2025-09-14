@@ -1,10 +1,7 @@
-<!doctype html>
-<html lang="en"><head>
+<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Insights — QR1.tech</title>
-<link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
+<title>AI Insights — QR1.tech</title><link rel="stylesheet" href="assets/styles.css">
+</head><body>
 
 <header class="appbar">
   <div class="bar-inner">
@@ -28,8 +25,7 @@
 </header>
 
 <div class="container"><main class="panel" style="margin-top:10px">
-  <h1>AI Insights</h1>
-  <p class="small">Coming soon — smart tips from scan trends and performance.</p>
+  <h1>AI Insights</h1><p class="small">Coming soon — smart tips from scan trends and performance.</p>
 </main></div>
 
 <div class="dots" data-dots>
@@ -42,13 +38,10 @@
   <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
 
-
 <script>
 (function(){
   // Default to Analytics
-  if(!location.hash || location.hash==="#/" || location.hash==="#"){
-    location.hash = "#/track";
-  }
+  if(!location.hash || location.hash==="#/" || location.hash==="#"){ location.hash = "#/track"; }
   function key(){
     const h=(location.hash||"").toLowerCase();
     const p=location.pathname.toLowerCase();
@@ -56,7 +49,6 @@
     if(h.startsWith("#/track")||h.startsWith("#/analytics")) return "analytics";
     if(h.startsWith("#/ai")) return "ai";
     if(h.startsWith("#/builder")) return "builder";
-    if(h.startsWith("#/examples")) return "examples"; // fallback
     if(p.endsWith("/policies.html")) return "pricing";
     if(p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
     if(p.endsWith("/signin.html")) return "signin";
@@ -67,9 +59,22 @@
     document.querySelectorAll(".appbar .pills a").forEach(a=>a.classList.toggle("active", a.dataset.nav===k));
     document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
   }
-  window.addEventListener("hashchange", paint);
-  window.addEventListener("DOMContentLoaded", paint);
-  paint();
+  function hideInnerBars(){
+    // Hide any inner header/nav rows that aren't our .appbar
+    const candidates = document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
+    candidates.forEach(el=>{
+      if(el.closest('.appbar')) return; // keep ours
+      const txt = (el.textContent||'').replace(/\s+/g,' ').trim();
+      const looksLikeBar = /Home/i.test(txt) && /(Create|Create QR)/i.test(txt) &&
+                           /(Analytics|Track Scans)/i.test(txt);
+      if(looksLikeBar){ el.style.display='none'; }
+    });
+  }
+  function go(){ hideInnerBars(); paint(); }
+  window.addEventListener("hashchange", go);
+  window.addEventListener("DOMContentLoaded", go);
+  setTimeout(go, 600);
+  new MutationObserver(go).observe(document.body, {subtree:true, childList:true});
 })();
 </script>
 
