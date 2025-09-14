@@ -3,41 +3,74 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Connect — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
-<script src="assets/app.js" defer></script>
-
 </head>
 <body>
-<div class="container">
 
-<nav class="nav">
-  <a class="logo" href="index.html">QR1.tech</a>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="builder.html">Create</a>
-    <a href="connect.html">Connect</a>
-    <a href="analytics.html">Analytics</a>
-    <a href="insights.html">AI Insights</a>
-    <a href="templates.html">Templates</a>
-    <a href="policies.html">Pricing</a>
+<header class="appbar">
+  <div class="bar-inner">
+    <div class="brandpack">
+      <div class="badge"><span class="dot"></span></div>
+      <div class="brandtxt">
+        <div class="title">qr1.tech</div>
+        <div class="subtitle">Create &amp; Track Beautiful QR Codes</div>
+      </div>
+    </div>
+    <nav class="pills">
+      <a data-nav="home" href="#/">Home</a>
+      <a data-nav="create" href="templates.html">Create QR Code</a>
+      <a data-nav="analytics" href="#/track">Scan Analytics</a>
+      <a data-nav="ai" href="#/ai">AI Insights</a>
+      <a data-nav="pricing" href="policies.html">Pricing</a>
+      <a data-nav="connect" href="connect.html">Connect</a>
+      <a data-nav="signin" href="signin.html">Sign in</a>
+    </nav>
   </div>
-</nav>
+</header>
 
+<div class="container"><main class="panel" style="margin-top:10px">
+  <h1>Connect</h1>
+  <p class="small">Connect your account to enable extras (scan webhooks, email alerts, etc.).</p>
+</main></div>
 
-<section class="screen">
-  <form class="panel form" style="width:100%">
-    <h2 style="margin:0 0 6px 0">Connect</h2>
-    <div class="row">
-      <input id="ig" placeholder="Instagram URL">
-      <input id="wa" placeholder="WhatsApp number">
-      <input id="web" placeholder="Website URL">
-    </div>
-    <div class="kv">
-      <a class="btn" href="builder.html">Save</a>
-    </div>
-    <p class="meta">Tip: keep links short and human‑friendly.</p>
-  </form>
-</section>
-<div class="footer">Lifetime membership is ad‑free.</div>
-
+<div class="dots" data-dots>
+  <a class="dot" data-dot="home" href="#/"></a>
+  <a class="dot" data-dot="create" href="templates.html"></a>
+  <a class="dot" data-dot="builder" href="#/builder"></a>
+  <a class="dot" data-dot="analytics" href="#/track"></a>
+  <a class="dot" data-dot="ai" href="#/ai"></a>
+  <a class="dot" data-dot="pricing" href="policies.html"></a>
+  <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
+
+
+<script>
+(function(){
+  // Default to Analytics
+  if(!location.hash || location.hash==="#/" || location.hash==="#"){
+    location.hash = "#/track";
+  }
+  function key(){
+    const h=(location.hash||"").toLowerCase();
+    const p=location.pathname.toLowerCase();
+    if(p.endsWith("/templates.html")) return "create";
+    if(h.startsWith("#/track")||h.startsWith("#/analytics")) return "analytics";
+    if(h.startsWith("#/ai")) return "ai";
+    if(h.startsWith("#/builder")) return "builder";
+    if(h.startsWith("#/examples")) return "examples"; // fallback
+    if(p.endsWith("/policies.html")) return "pricing";
+    if(p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
+    if(p.endsWith("/signin.html")) return "signin";
+    return "home";
+  }
+  function paint(){
+    const k=key();
+    document.querySelectorAll(".appbar .pills a").forEach(a=>a.classList.toggle("active", a.dataset.nav===k));
+    document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
+  }
+  window.addEventListener("hashchange", paint);
+  window.addEventListener("DOMContentLoaded", paint);
+  paint();
+})();
+</script>
+
 </body></html>

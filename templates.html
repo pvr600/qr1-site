@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Templates — QR1.tech</title>
+<title>Create — QR1.tech</title>
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="topnav container">
-  <div class="brand"><a href="index.html#/">QR1.tech</a></div>
-  <nav class="links">
-    <a href="index.html#/" data-nav="home">Home</a>
-    <a href="templates.html" data-nav="create">Create</a>
-    <a href="index.html#/track" data-nav="analytics">Analytics</a>
-    <a href="index.html#/examples" data-nav="examples">Examples</a>
-    <a href="policies.html" data-nav="pricing">Pricing</a>
-    <a href="signin.html" data-nav="signin">Sign in</a>
-  </nav>
-</div>
+<header class="appbar">
+  <div class="bar-inner">
+    <div class="brandpack">
+      <div class="badge"><span class="dot"></span></div>
+      <div class="brandtxt">
+        <div class="title">qr1.tech</div>
+        <div class="subtitle">Create &amp; Track Beautiful QR Codes</div>
+      </div>
+    </div>
+    <nav class="pills">
+      <a data-nav="home" href="#/">Home</a>
+      <a data-nav="create" href="templates.html">Create QR Code</a>
+      <a data-nav="analytics" href="#/track">Scan Analytics</a>
+      <a data-nav="ai" href="#/ai">AI Insights</a>
+      <a data-nav="pricing" href="policies.html">Pricing</a>
+      <a data-nav="connect" href="connect.html">Connect</a>
+      <a data-nav="signin" href="signin.html">Sign in</a>
+    </nav>
+  </div>
+</header>
 
 <div class="container">
   <main class="panel" style="margin-top:10px">
@@ -40,69 +49,53 @@
   </main>
 </div>
 
-<div class="dots container" data-dots>
-  <a class="dot" href="index.html#/" data-dot="home" title="Home"></a>
-  <a class="dot" href="templates.html" data-dot="create" title="Templates"></a>
-  <a class="dot" href="index.html#/builder" data-dot="builder" title="Builder"></a>
-  <a class="dot" href="index.html#/track" data-dot="analytics" title="Analytics"></a>
-  <a class="dot" href="index.html#/examples" data-dot="examples" title="Examples"></a>
-  <a class="dot" href="policies.html" data-dot="pricing" title="Pricing"></a>
+<div class="dots" data-dots>
+  <a class="dot" data-dot="home" href="#/"></a>
+  <a class="dot" data-dot="create" href="templates.html"></a>
+  <a class="dot" data-dot="builder" href="#/builder"></a>
+  <a class="dot" data-dot="analytics" href="#/track"></a>
+  <a class="dot" data-dot="ai" href="#/ai"></a>
+  <a class="dot" data-dot="pricing" href="policies.html"></a>
+  <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
 
 <script>
 (function(){
-  let chosen = null;
-  const chips = document.querySelectorAll('.chip');
-  const namer = document.getElementById('namer');
-  const go = document.getElementById('go');
-  chips.forEach(b=>b.addEventListener('click',()=>{
-    chosen = b.dataset.tpl;
-    chips.forEach(x=>x.classList.remove('active')); b.classList.add('active');
-    namer.style.display='block';
-  }));
-  go.addEventListener('click', function(e){
-    e.preventDefault();
-    const name = document.getElementById('qrName').value.trim()||'Untitled QR';
-    try{ localStorage.setItem('qr1_new_template', chosen||'url'); localStorage.setItem('qr1_new_name', name); }catch(e){}
-    window.location.href = 'index.html#/builder';
-  });
+  let chosen=null;
+  const chips=document.querySelectorAll('.chip');
+  const namer=document.getElementById('namer');
+  const go=document.getElementById('go');
+  chips.forEach(b=>b.addEventListener('click',()=>{chosen=b.dataset.tpl;chips.forEach(x=>x.classList.remove('active'));b.classList.add('active');namer.style.display='block';}));
+  go.addEventListener('click',function(e){e.preventDefault();const name=document.getElementById('qrName').value.trim()||'Untitled QR';try{localStorage.setItem('qr1_new_template',chosen||'url');localStorage.setItem('qr1_new_name',name);}catch(e){};window.location.href='index.html#/builder';});
 })();
 </script>
 
 <script>
 (function(){
-  function currentKey(){
-    const h = (location.hash||'').toLowerCase();
-    const p = location.pathname.toLowerCase();
-    if (p.endsWith('/templates.html')) return 'create';
-    if (h.startsWith('#/builder')) return 'builder';
-    if (h.startsWith('#/track') || h.startsWith('#/analytics')) return 'analytics';
-    if (h.startsWith('#/examples')) return 'examples';
-    if (p.endsWith('/policies.html')) return 'pricing';
-    if (p.endsWith('/signin.html')) return 'signin';
-    return 'home';
+  // Default to Analytics
+  if(!location.hash || location.hash==="#/" || location.hash==="#"){
+    location.hash = "#/track";
+  }
+  function key(){
+    const h=(location.hash||"").toLowerCase();
+    const p=location.pathname.toLowerCase();
+    if(p.endsWith("/templates.html")) return "create";
+    if(h.startsWith("#/track")||h.startsWith("#/analytics")) return "analytics";
+    if(h.startsWith("#/ai")) return "ai";
+    if(h.startsWith("#/builder")) return "builder";
+    if(h.startsWith("#/examples")) return "examples"; // fallback
+    if(p.endsWith("/policies.html")) return "pricing";
+    if(p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
+    if(p.endsWith("/signin.html")) return "signin";
+    return "home";
   }
   function paint(){
-    var k = currentKey();
-    document.querySelectorAll('.topnav .links a').forEach(a=>{
-      if(a.dataset.nav===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
-    });
-    document.querySelectorAll('.dots .dot').forEach(a=>{
-      if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
-    });
-    // Prefill builder name from localStorage (best effort)
-    if(k==='builder'){
-      try{
-        const n = localStorage.getItem('qr1_new_name')||'';
-        if(n){
-          const inputs = Array.from(document.querySelectorAll('input,textarea')).filter(el=>/name/i.test(el.placeholder||'') || /name/i.test(el.id||''));
-          if(inputs[0] && !inputs[0].value){ inputs[0].value = n; }
-        }
-      }catch(e){}
-    }
+    const k=key();
+    document.querySelectorAll(".appbar .pills a").forEach(a=>a.classList.toggle("active", a.dataset.nav===k));
+    document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
   }
-  window.addEventListener('hashchange', paint);
-  window.addEventListener('DOMContentLoaded', paint);
+  window.addEventListener("hashchange", paint);
+  window.addEventListener("DOMContentLoaded", paint);
   paint();
 })();
 </script>

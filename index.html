@@ -66,17 +66,26 @@
 </head>
 <body class="bg-[var(--bg)]">
 
-<div class="topnav container">
-  <div class="brand"><a href="index.html#/">QR1.tech</a></div>
-  <nav class="links">
-    <a href="index.html#/" data-nav="home">Home</a>
-    <a href="templates.html" data-nav="create">Create</a>
-    <a href="index.html#/track" data-nav="analytics">Analytics</a>
-    <a href="index.html#/examples" data-nav="examples">Examples</a>
-    <a href="policies.html" data-nav="pricing">Pricing</a>
-    <a href="signin.html" data-nav="signin">Sign in</a>
-  </nav>
-</div>
+<header class="appbar">
+  <div class="bar-inner">
+    <div class="brandpack">
+      <div class="badge"><span class="dot"></span></div>
+      <div class="brandtxt">
+        <div class="title">qr1.tech</div>
+        <div class="subtitle">Create &amp; Track Beautiful QR Codes</div>
+      </div>
+    </div>
+    <nav class="pills">
+      <a data-nav="home" href="#/">Home</a>
+      <a data-nav="create" href="templates.html">Create QR Code</a>
+      <a data-nav="analytics" href="#/track">Scan Analytics</a>
+      <a data-nav="ai" href="#/ai">AI Insights</a>
+      <a data-nav="pricing" href="policies.html">Pricing</a>
+      <a data-nav="connect" href="connect.html">Connect</a>
+      <a data-nav="signin" href="signin.html">Sign in</a>
+    </nav>
+  </div>
+</header>
 
   <header class="border-b border-brand-border/80 bg-white sticky top-0 z-40">
     <div class="container-lg flex items-center justify-between py-3">
@@ -652,60 +661,43 @@
   init();
 </script>
 
-<div class="dots container" data-dots>
-  <a class="dot" href="index.html#/" data-dot="home"></a>
-  <a class="dot" href="templates.html" data-dot="create"></a>
-  <a class="dot" href="index.html#/builder" data-dot="builder"></a>
-  <a class="dot" href="index.html#/track" data-dot="analytics"></a>
-  <a class="dot" href="index.html#/examples" data-dot="examples"></a>
-  <a class="dot" href="policies.html" data-dot="pricing"></a>
+<div class="dots" data-dots>
+  <a class="dot" data-dot="home" href="#/"></a>
+  <a class="dot" data-dot="create" href="templates.html"></a>
+  <a class="dot" data-dot="builder" href="#/builder"></a>
+  <a class="dot" data-dot="analytics" href="#/track"></a>
+  <a class="dot" data-dot="ai" href="#/ai"></a>
+  <a class="dot" data-dot="pricing" href="policies.html"></a>
+  <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
 
 <script>
 (function(){
-  function currentKey(){
-    const h = (location.hash||'').toLowerCase();
-    const p = location.pathname.toLowerCase();
-    if (p.endsWith('/templates.html')) return 'create';
-    if (h.startsWith('#/builder')) return 'builder';
-    if (h.startsWith('#/track') || h.startsWith('#/analytics')) return 'analytics';
-    if (h.startsWith('#/examples')) return 'examples';
-    if (p.endsWith('/policies.html')) return 'pricing';
-    if (p.endsWith('/signin.html')) return 'signin';
-    return 'home';
+  // Default to Analytics
+  if(!location.hash || location.hash==="#/" || location.hash==="#"){
+    location.hash = "#/track";
+  }
+  function key(){
+    const h=(location.hash||"").toLowerCase();
+    const p=location.pathname.toLowerCase();
+    if(p.endsWith("/templates.html")) return "create";
+    if(h.startsWith("#/track")||h.startsWith("#/analytics")) return "analytics";
+    if(h.startsWith("#/ai")) return "ai";
+    if(h.startsWith("#/builder")) return "builder";
+    if(h.startsWith("#/examples")) return "examples"; // fallback
+    if(p.endsWith("/policies.html")) return "pricing";
+    if(p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
+    if(p.endsWith("/signin.html")) return "signin";
+    return "home";
   }
   function paint(){
-    var k = currentKey();
-    document.querySelectorAll('.topnav .links a').forEach(a=>{
-      if(a.dataset.nav===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
-    });
-    document.querySelectorAll('.dots .dot').forEach(a=>{
-      if(a.dataset.dot===k){ a.classList.add('active'); } else { a.classList.remove('active'); }
-    });
+    const k=key();
+    document.querySelectorAll(".appbar .pills a").forEach(a=>a.classList.toggle("active", a.dataset.nav===k));
+    document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
   }
-  function hideInnerHeader(){
-    try{
-      document.querySelectorAll('a,button,span').forEach(n=>{
-        if(/track\s*scans/i.test(n.textContent||'')){ n.textContent = n.textContent.replace(/track\s*scans/ig,'Analytics'); }
-      });
-      const candidates = document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
-      candidates.forEach(el=>{
-        if(el.closest('.topnav')) return;
-        const t = (el.textContent||'').replace(/\s+/g,' ').trim();
-        const looksLikeInnerBar = /Home/i.test(t) && /(Create\s*QR|Create)/i.test(t) &&
-                                  /(Analytics|Track Scans)/i.test(t) && /Examples/i.test(t);
-        if(looksLikeInnerBar){ el.style.display='none'; }
-      });
-      document.querySelectorAll('a,button').forEach(b=>{
-        if(/create\s*qr\s*code/i.test(b.textContent||'')){ b.style.display='none'; }
-      });
-    }catch(e){}
-  }
-  function go(){ paint(); hideInnerHeader(); }
-  window.addEventListener('hashchange', go);
-  window.addEventListener('DOMContentLoaded', go);
-  setTimeout(go, 600);
-  new MutationObserver(go).observe(document.body, {subtree:true, childList:true});
+  window.addEventListener("hashchange", paint);
+  window.addEventListener("DOMContentLoaded", paint);
+  paint();
 })();
 </script>
 

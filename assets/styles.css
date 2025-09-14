@@ -33,14 +33,27 @@ kbd.k{font-family:ui-monospace,Menlo,Consolas,monospace;padding:2px 6px;border:1
 
 
 
-.topnav{position:sticky; top:8px; z-index:999; display:flex;align-items:center;justify-content:space-between;
-  padding:10px 16px;margin:8px auto;max-width:1100px;background:#fff;border:1px solid var(--border,#E2E8F0);
-  border-radius:16px;box-shadow:0 8px 20px rgba(2,6,23,.06)}
-.topnav .brand a{font-weight:800;text-decoration:none;white-space:nowrap}
-.topnav .links{display:flex;gap:10px;flex-wrap:nowrap;overflow:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.topnav .links::-webkit-scrollbar{display:none}
-.topnav .links a{padding:8px 12px;border:1px solid var(--border,#E2E8F0);border-radius:999px;text-decoration:none;color:var(--text,#0F172A);background:#fff;display:inline-block}
-.topnav .links a.active{background:var(--accent,#2563EB);color:#fff;border-color:transparent}
+/* App bar */
+.appbar{position:sticky;top:0;z-index:999;background:#fff;border-bottom:1px solid #E5EAF1}
+.appbar .bar-inner{max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:16px}
+.brandpack{display:flex;align-items:center;gap:10px}
+.brandpack .badge{width:42px;height:42px;border-radius:50%;background:#F1F5FF;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px #D9E6FF}
+.brandpack .badge .dot{width:16px;height:16px;border-radius:50%;background:#2563EB;display:block}
+.brandtxt .title{font-weight:800;line-height:1}
+.brandtxt .subtitle{font-size:12px;color:#64748B;line-height:1.1}
+
+/* Pills */
+.pills{display:flex;gap:10px;flex-wrap:nowrap;overflow:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:auto}
+.pills::-webkit-scrollbar{display:none}
+.pills a{padding:10px 14px;border-radius:999px;border:1px solid #E5EAF1;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04);text-decoration:none;color:#0F172A;font-weight:600}
+.pills a.active{background:#2563EB;color:#fff;border-color:#2563EB}
+
+/* Dots */
 .dots{display:flex;gap:10px;justify-content:center;align-items:center;margin:18px auto}
-.dots .dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--accent,#2563EB);display:inline-block;opacity:.6}
-.dots .dot.active{background:var(--accent,#2563EB);opacity:1}
+.dots .dot{width:10px;height:10px;border-radius:50%;border:2px solid #2563EB;display:inline-block;opacity:.6}
+.dots .dot.active{background:#2563EB;opacity:1}
+
+/* Chips */
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chip{padding:10px 14px;border:1px solid #E5EAF1;border-radius:999px;background:#fff;cursor:pointer}
+.chip.active{background:#2563EB;color:#fff;border-color:#2563EB}
