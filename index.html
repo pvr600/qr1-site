@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+  <script>(function(){try{
+
     tailwind.config = {
       theme: {
         extend: {
@@ -30,7 +31,8 @@
         }
       }
     }
-  </script>
+  
+}catch(e){console && console.error && console.error('Init error', e);document.getElementById('fallback-visible').style.display='block';}})();</script>
   <style>
     :root{
       --bg:#F8FAFC; --panel:#FFFFFF; --border:#E2E8F0; --text:#0F172A; --mute:#64748B;
@@ -65,6 +67,11 @@
   <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
 </head>
 <body class="bg-[var(--bg)]">
+
+<div id="fallback-visible" style="max-width:1180px;margin:12px auto;padding:12px;border:1px solid #E5EAF1;border-radius:12px;background:#fff;display:none">
+  <strong>Loading...</strong> If the page stays blank, your browser cached an old script. Try a hard refresh (Cmd+Shift+R).
+</div>
+
 
 <header class="appbar">
   <div class="bar-inner">
@@ -671,7 +678,8 @@
   <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
 
-<script>
+<script>(function(){try{
+
 (function(){
   // Default to Analytics (index.html#/home)
   if (location.pathname.toLowerCase().endsWith("/index.html") || location.pathname.toLowerCase().endsWith("/")) {
@@ -731,7 +739,8 @@
   setTimeout(go, 500);
   new MutationObserver(go).observe(document.body, {subtree:true, childList:true});
 })();
-</script>
+
+}catch(e){console && console.error && console.error('Init error', e);document.getElementById('fallback-visible').style.display='block';}})();</script>
 
 </body>
 </html>
