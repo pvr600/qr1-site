@@ -1,6 +1,6 @@
-<!doctype html><html lang='en'><head>
-<meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Connect — QR1.tech</title><link rel='stylesheet' href='assets/styles.css'></head><body>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connect — QR1.tech</title><link rel="stylesheet" href="assets/styles.css"></head><body>
 
 <header class="appbar">
   <div class="bar-inner">
@@ -12,75 +12,50 @@
       </div>
     </div>
     <nav class="pills">
-      <a data-nav="home" href="index.html#/home">Home</a>
+      <a data-nav="home" href="#/home">Home</a>
       <a data-nav="create" href="templates.html">Create QR Code</a>
-      <a data-nav="analytics" href="index.html#/home">Scan Analytics</a>
-      <a data-nav="ai" href="index.html#/ai">AI Insights</a>
+      <a data-nav="analytics" href="#/home">Scan Analytics</a>
+      <a data-nav="ai" href="#/ai">AI Insights</a>
       <a data-nav="pricing" href="policies.html">Pricing</a>
       <a data-nav="connect" href="connect.html">Connect</a>
       <a data-nav="signin" href="signin.html">Sign in</a>
     </nav>
   </div>
 </header>
-<div class='container'><main class='panel' style='margin-top:10px'>
-<h1>Connect</h1><p class='small'>Connect your account to enable extras (scan webhooks, email alerts, etc.).</p>
+<div class="container"><main class="panel" style="margin-top:10px">
+<h1>Connect</h1><p class="small">Connect your account to enable extras (scan webhooks, email alerts, etc.).</p>
 </main></div>
 <div class="dots" data-dots>
-  <a class="dot" data-dot="home" href="index.html#/home"></a>
+  <a class="dot" data-dot="home" href="#/home"></a>
   <a class="dot" data-dot="create" href="templates.html"></a>
-  <a class="dot" data-dot="builder" href="index.html#/builder"></a>
-  <a class="dot" data-dot="analytics" href="index.html#/home"></a>
-  <a class="dot" data-dot="ai" href="index.html#/ai"></a>
+  <a class="dot" data-dot="builder" href="#/builder"></a>
+  <a class="dot" data-dot="analytics" href="#/home"></a>
+  <a class="dot" data-dot="ai" href="#/ai"></a>
   <a class="dot" data-dot="pricing" href="policies.html"></a>
   <a class="dot" data-dot="connect" href="connect.html"></a>
 </div>
 
 <script>
 (function(){
-  // Default to Analytics (index.html#/home)
-  if (location.pathname.toLowerCase().endsWith("/index.html") || location.pathname.toLowerCase().endsWith("/")) {
-    if (!location.hash || location.hash==="#/" || location.hash==="#") {
-      location.hash = "#/home";
-    }
-  }
+  if(!location.hash || location.hash==="#/"){ location.hash = "#/home"; }
   function key(){
     const h=(location.hash||"").toLowerCase();
     const p=location.pathname.toLowerCase();
-    if (p.endsWith("/templates.html")) return "create";
-    if (h.startsWith("#/home")) return "analytics";
-    if (h.startsWith("#/ai")) return "ai";
-    if (h.startsWith("#/builder")) return "builder";
-    if (p.endsWith("/policies.html")) return "pricing";
-    if (p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
-    if (p.endsWith("/signin.html")) return "signin";
+    if(p.endsWith("/templates.html")) return "create";
+    if(h.startsWith("#/home")) return "analytics";
+    if(h.startsWith("#/ai")) return "ai";
+    if(h.startsWith("#/builder")) return "builder";
+    if(p.endsWith("/policies.html")) return "pricing";
+    if(p.endsWith("/connect.html") || h.startsWith("#/connect")) return "connect";
+    if(p.endsWith("/signin.html")) return "signin";
     return "home";
   }
   function paint(){
     const k=key();
     document.querySelectorAll(".appbar .pills a").forEach(a=>a.classList.toggle("active", a.dataset.nav===k));
     document.querySelectorAll(".dots .dot").forEach(a=>a.classList.toggle("active", a.dataset.dot===k));
-    // Inject mockup hero on Analytics landing
-    const isAnalytics = (k === "analytics");
-    const heroSel = ".analytics-hero";
-    const existing = document.querySelector(heroSel);
-    if (isAnalytics && !existing){
-      const root = document.querySelector("main, .container, body");
-      if (root){
-        const div = document.createElement("div");
-        div.innerHTML = `<section class=\"analytics-hero\">  <div class=\"hero-inner\">    <img alt=\"Daily Scans mock\" src=\"data:image/svg+xml;utf8,    <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'360\'>      <rect width=\'100%\' height=\'100%\' rx=\'18\' ry=\'18\' fill=\'%23ffffff\' stroke=\'%23E5EAF1\'/>      <text x=\'24\' y=\'36\' font-size=\'18\' fill=\'%231f2937\' font-weight=\'700\'>Daily Scans</text>      <rect x=\'24\' y=\'60\' width=\'552\' height=\'2\' fill=\'%23E5EAF1\'/>      <rect x=\'60\' y=\'280\' width=\'20\' height=\'40\' fill=\'%239ca3af\'/>      <rect x=\'100\' y=\'250\' width=\'20\' height=\'70\' fill=\'%239ca3af\'/>      <rect x=\'140\' y=\'200\' width=\'20\' height=\'120\' fill=\'%239ca3af\'/>      <rect x=\'180\' y=\'230\' width=\'20\' height=\'90\' fill=\'%239ca3af\'/>      <rect x=\'220\' y=\'150\' width=\'20\' height=\'170\' fill=\'%239ca3af\'/>      <rect x=\'260\' y=\'100\' width=\'20\' height=\'220\' fill=\'%232563eb\'/>      <rect x=\'300\' y=\'140\' width=\'20\' height=\'180\' fill=\'%239ca3af\'/>      <rect x=\'340\' y=\'210\' width=\'20\' height=\'110\' fill=\'%239ca3af\'/>      <rect x=\'380\' y=\'170\' width=\'20\' height=\'150\' fill=\'%239ca3af\'/>      <rect x=\'420\' y=\'200\' width=\'20\' height=\'120\' fill=\'%239ca3af\'/>      <rect x=\'460\' y=\'260\' width=\'20\' height=\'60\'  fill=\'%239ca3af\'/>      <rect x=\'500\' y=\'240\' width=\'20\' height=\'80\'  fill=\'%239ca3af\'/>    </svg>\"/>    <img alt=\"Devices mock\" src=\"data:image/svg+xml;utf8,    <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'360\'>      <rect width=\'100%\' height=\'100%\' rx=\'18\' ry=\'18\' fill=\'%23ffffff\' stroke=\'%23E5EAF1\'/>      <text x=\'24\' y=\'36\' font-size=\'18\' fill=\'%231f2937\' font-weight=\'700\'>Devices</text>      <rect x=\'24\' y=\'60\' width=\'552\' height=\'2\' fill=\'%23E5EAF1\'/>      <circle cx=\'180\' cy=\'210\' r=\'90\' fill=\'%239ca3af\'/>      <path d=\'M180,210 L180,120 A90,90 0 0,1 260,210 z\' fill=\'%232563eb\'/>      <rect x=\'320\' y=\'140\' width=\'18\' height=\'18\' fill=\'%232563eb\'/>      <text x=\'344\' y=\'154\' font-size=\'14\' fill=\'%231f2937\'>Mobile</text>      <rect x=\'320\' y=\'172\' width=\'18\' height=\'18\' fill=\'%239ca3af\'/>      <text x=\'344\' y=\'186\' font-size=\'14\' fill=\'%231f2937\'>Desktop/Tablet</text>    </svg>\"/>    <img alt=\"Top Cities mock\" src=\"data:image/svg+xml;utf8,    <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'360\'>      <rect width=\'100%\' height=\'100%\' rx=\'18\' ry=\'18\' fill=\'%23ffffff\' stroke=\'%23E5EAF1\'/>      <text x=\'24\' y=\'36\' font-size=\'18\' fill=\'%231f2937\' font-weight=\'700\'>Top Cities</text>      <rect x=\'24\' y=\'60\' width=\'552\' height=\'2\' fill=\'%23E5EAF1\'/>      <rect x=\'60\' y=\'110\' width=\'380\' height=\'20\' fill=\'%232563eb\'/>      <text x=\'60\' y=\'106\' font-size=\'12\' fill=\'%236b7280\'>Johannesburg</text>      <rect x=\'60\' y=\'170\' width=\'300\' height=\'20\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'166\' font-size=\'12\' fill=\'%236b7280\'>Pretoria</text>      <rect x=\'60\' y=\'230\' width=\'240\' height=\'20\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'226\' font-size=\'12\' fill=\'%236b7280\'>Cape Town</text>      <rect x=\'60\' y=\'290\' width=\'180\' height=\'20\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'286\' font-size=\'12\' fill=\'%236b7280\'>Durban</text>    </svg>\"/>    <img alt=\"Top Campaigns mock\" src=\"data:image/svg+xml;utf8,    <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'360\'>      <rect width=\'100%\' height=\'100%\' rx=\'18\' ry=\'18\' fill=\'%23ffffff\' stroke=\'%23E5EAF1\'/>      <text x=\'24\' y=\'36\' font-size=\'18\' fill=\'%231f2937\' font-weight=\'700\'>Top Campaigns</text>      <rect x=\'24\' y=\'60\' width=\'552\' height=\'2\' fill=\'%23E5EAF1\'/>      <rect x=\'60\' y=\'110\' width=\'360\' height=\'18\' fill=\'%232563eb\'/>      <text x=\'60\' y=\'106\' font-size=\'12\' fill=\'%236b7280\'>vcard</text>      <rect x=\'60\' y=\'160\' width=\'300\' height=\'18\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'156\' font-size=\'12\' fill=\'%236b7280\'>menu</text>      <rect x=\'60\' y=\'210\' width=\'220\' height=\'18\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'206\' font-size=\'12\' fill=\'%236b7280\'>product-a</text>      <rect x=\'60\' y=\'260\' width=\'160\' height=\'18\' fill=\'%239ca3af\'/>      <text x=\'60\' y=\'256\' font-size=\'12\' fill=\'%236b7280\'>Unlabeled</text>    </svg>\"/>  </div></section>`;
-        root.prepend(div.firstElementChild);
-      }
-    }
-    // Hide the original three-panel feature cards if present
-    document.querySelectorAll("*").forEach(el=>{
-      const t=(el.textContent||"").trim();
-      if(/Clean\s*Templates/i.test(t) && /Curated\s*Palette/i.test(t) && /Real\s*Analytics/i.test(t)){
-        el.style.display="none";
-      }
-    });
   }
   function hideInnerBars(){
-    // Hide any inner header/nav rows that aren't our appbar
     const nodes=document.querySelectorAll('header, nav, .nav, .navbar, .toolbar, .row, .container');
     nodes.forEach(el=>{
       if(el.closest('.appbar')) return;
